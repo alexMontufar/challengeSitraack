@@ -5,7 +5,7 @@
     android:name="SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MapsActivity"
+    tools:context="com.example.challenge_sitrack.ui.MapsActivity"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="19dp">
 

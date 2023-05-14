@@ -1,14 +1,13 @@
 package com.example.challenge_sitrack.datasource
 
-import com.example.challenge_sitrack.utils.Result.Error
-import com.example.challenge_sitrack.utils.Result.Success
+import com.example.challenge_sitrack.utils.Result
 import com.example.challenge_sitrack.utils.WebServices
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RandomUserRemoteDataSource {//Clase para obtener los datos de la URL con retrofit.
+class RandomUserRemoteDataSource {
 
     suspend fun getRandomUser() = try {
         val retrofit = Retrofit.Builder().baseUrl("https://randomuser.me/")
@@ -18,17 +17,16 @@ class RandomUserRemoteDataSource {//Clase para obtener los datos de la URL con r
         val webServices: WebServices = retrofit.create(WebServices::class.java)
 
         val result = webServices.getRandomUser()
-        Success(result.userInfo[0])
+        Result.Success(result.userInfo[0])
     } catch (exception: Exception) {
-        Error(exception)
+        Result.Error(exception)
     }
 
-    private fun getOkHttpClient() = OkHttpClient.Builder().apply {//Constructor
+    private fun getOkHttpClient() = OkHttpClient.Builder().apply {
         addInterceptor(getHttpInterceptor())
-
     }.build()
 
-    private fun getHttpInterceptor() = HttpLoggingInterceptor().apply {//
+    private fun getHttpInterceptor() = HttpLoggingInterceptor().apply {
         setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 }

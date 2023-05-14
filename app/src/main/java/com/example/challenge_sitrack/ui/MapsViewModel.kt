@@ -12,31 +12,32 @@ import com.example.challenge_sitrack.ui.model.MapsUiModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import  com.example.challenge_sitrack.utils.Result
 
-class MapsViewModel(private val getRandomUserUseCase: GetRandomUserUseCase) : ViewModel() {//Clase ViewModel del mapa
+class MapsViewModel(private val getRandomUserUseCase: GetRandomUserUseCase) : ViewModel() {
 
     private val _mapsUiModel = MutableLiveData<MapsUiModel>()
     val mapsUiModel: LiveData<MapsUiModel>
         get() = _mapsUiModel
 
-    fun getUser() {//Función para que con el usecase se determine si se obtienen los datos.
+    fun getUser() {
         emitMapsUiState(showRefresh = true)
         viewModelScope.launch(Dispatchers.IO) {
             val result = getRandomUserUseCase.getRandomUser()
             withContext(Dispatchers.Main) {
                 when(result) {
-                    is com.example.challenge_sitrack.utils.Result.Success -> getUserSuccess(result.data)
-                    is com.example.challenge_sitrack.utils.Result.Error -> getUserError(result.exception)
+                    is Result.Success -> getUserSuccess(result.data)
+                    is Result.Error -> getUserError(result.exception)
                 }
             }
         }
     }
 
-    private fun getUserSuccess(userInfo: UserInfo) {//Función para que se obtenga información del usuario.
+    private fun getUserSuccess(userInfo: UserInfo) {
         emitMapsUiState(infoUser = userInfo.toInfoUser())
     }
 
-    private fun getUserError(exception: Exception) {//Excepción para cuando el llamado del usuario sea erroneo.
+    private fun getUserError(exception: Exception) {
         exception.printStackTrace()
         emitMapsUiState(exception = exception)
     }

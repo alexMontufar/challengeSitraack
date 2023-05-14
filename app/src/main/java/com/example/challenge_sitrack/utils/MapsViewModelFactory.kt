@@ -8,7 +8,7 @@ import com.example.challenge_sitrack.domain.RandomUserRepository
 import com.example.challenge_sitrack.ui.MapsViewModel
 
 @Suppress("UNCHECKED_CAST")
-class MapsViewModelFactory : ViewModelProvider.Factory {//Creación de MapsViewModelFactory
+class MapsViewModelFactory : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
 

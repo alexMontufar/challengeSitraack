@@ -71,10 +71,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         swipeRefreshLayout = findViewById(R.id.swiperefresh)
     }
 
-    private fun initMapFragment() {//Asignación del mapa para mostrarlo en la Interfaz.
+    private fun initMapFragment() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.Map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
     }
 
     private fun initRefreshLayout() = swipeRefreshLayout.run {
@@ -120,8 +119,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         moveCamera(CameraUpdateFactory.newLatLng(position))
     }
 
-
-    private fun getInfoUserError(exception: Exception) = Toast.makeText(this, exception.message, Toast.LENGTH_SHORT).show()//Lo que se mostrará como texto al fallar la llamada
+    private fun getInfoUserError(exception: Exception) = Toast.makeText(this, exception.message, Toast.LENGTH_SHORT).show()
 
     override fun onMapReady(googleMap: GoogleMap) {
         mGoogleMap = googleMap
